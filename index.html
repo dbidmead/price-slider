@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
+  
+  <title>Pricing</title>
+</head>
+<body>
+  <div class="site-wrapper">
+    <div class="title-txt">
+      <img src="./images/pattern-circles.svg" alt="circles" id="bg-img">
+      <h1>Simple, traffic-based pricing</h1>
+      <div class="subtitle">
+        <span>Sign-up for our 30-day trial.</span>
+        <span>No credit card required.</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="slider-half">
+        <div class="pageviews-cell">
+          <span>--- PAGEVIEWS</span>
+        </div>
+        <div class="price-cell">
+          <span id="price-display">$--.--</span>
+          <span>/ month</span>
+        </div>
+        <div class="slider-cell">
+          <div class="slider">
+            <div class="slider-fill"></div>
+            <div class="slider-handle">
+              <img src="./images/icon-slider.svg" alt="arrows" id="arrows">
+            </div>
+          </div>
+        </div>
+        <div class="toggle-cell">
+          <p>Monthly Billing</p>
+          <div class="toggle">
+            <div class="toggle-handle"></div>
+          </div>
+          <p>Yearly Billing</p>
+          <div class="discount">25% discount</div>
+        </div>
+      </div>
+
+      <div class="btn-half">
+        <ul class="details">
+          <li>
+            <img src="./images/icon-check.svg" alt="check" class="check">
+            <p>Unlimited websites</p>
+          </li>
+          <li>
+            <img src="./images/icon-check.svg" alt="check" class="check">
+            <p>100% data ownership</p>
+          </li>
+          <li>
+            <img src="./images/icon-check.svg" alt="check" class="check">
+            <p>Email reports</p>
+          </li>
+        </ul>
+        <button id="start">Start my trial</button>
+      </div>
+    </div>
+
+    <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+      Coded by <a href="https://github.com/dbidmead" target="_blank">Drew Bidmead</a>.
+    </div>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>
+
+<!-- 
+- 10K pageviews / $8 per month
+- 50K pageviews / $12 per month
+- 100K pageviews / $16 per month
+- 500k pageviews / $24 per month
+- 1M pageviews / $36 per month
+
+If the visitor switches the toggle to yearly billing, a 25% discount should be applied to all prices. -->

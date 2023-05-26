@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;800&display=swap');
+
+:root {
+    --bg-color: hsl(230, 100%, 99%);
+    --slider-bg-color: hsl(224, 65%, 95%);
+    --toggle-bg-color: hsl(223, 50%, 87%);
+    --txt-light: hsl(225, 20%, 60%);
+    --txt-dark: hsl(227, 35%, 25%);
+    --slider-fill-color: hsl(174, 77%, 80%);
+    --slider-circle-color: hsl(174, 86%, 45%);
+    --discount-bg-color: hsl(14, 92%, 95%);
+    --discount-txt-color: hsl(15, 100%, 70%);
+    --btn-txt-color: hsl(226, 100%, 87%);
+}
+
+* {
+    font-family: 'Manrope', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 15px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.site-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8rem;
+    background-color: var(--bg-color);
+}
+
+.title-txt {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.title-txt>img {
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.title-txt>h1 {
+    color: var(--txt-dark);
+}
+
+span {
+    color: var(--txt-light);
+}
+
+/* ------------------------- */
+
+.card {
+    background-color: white;
+    width: 90%;
+    max-width: 650px;
+    border-radius: 10px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.053);
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+}
+
+/* ------------------------- */
+
+.slider-half {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.slider-cell, .toggle-cell {
+    grid-column: span 2;
+}
+
+.pageviews-cell {
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.2rem;
+}
+
+.price-cell {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#price-display {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--txt-dark);
+}
+
+/* ------------------------- */
+
+.slider-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.slider {
+    width: 100%;
+    height: 8px;
+    background-color: var(--slider-bg-color);
+    border-radius: 4px;
+}
+
+.slider-fill {
+    background-color: var(--slider-fill-color);
+    width: 50%;
+    height: 100%;
+    border-radius: 4px;
+}
+
+.slider-handle {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: var(--slider-circle-color);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0.75rem 35px var(--slider-circle-color);
+    cursor: pointer;
+    transition: opacity 0.4s ease;
+    /* you can't do transition all here because it will cause delay with the JS dragging and mess up the event listener */
+}
+
+.slider-handle:hover {
+    opacity: 80%;
+}
+
+.slider-handle>img {
+    pointer-events: none;
+}
+
+/* ------------------------- */
+
+.toggle-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.toggle-cell>p {
+    color: var(--txt-light);
+    font-size: 0.925em;
+}
+
+.toggle {
+    background-color: var(--toggle-bg-color);
+    width: 2.5rem;
+    height: 1.25rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    padding: 0.2rem;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+/* use @keyframes to animate the sliding of the toggle */
+
+.toggle:hover {
+    background-color: var(--slider-circle-color);
+}
+
+.toggle-handle {
+    width: 0.9rem;
+    height: 0.9rem;
+    background-color: white;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* apply to toggle container */
+.toggled {
+    justify-content: flex-end;
+    background-color: var(--slider-circle-color);
+}
+
+.discount {
+    font-size: 0.7em;
+    padding: 0.25em 0.75em;
+    color: var(--discount-txt-color);
+    background-color: var(--discount-bg-color);
+    border-radius: 1.2em;
+}
+
+/* ------------------------- */
+
+
+
+/* ------------------------- */
+
+.attribution { 
+    font-size: 11px; 
+    text-align: center; 
+    width: 100%;
+}
+
+.attribution a { 
+    color: var(--slider-circle-color); 
+    text-decoration: none;
+    font-weight: 800;
+    transition: all 0.2s ease;
+}
+
+.attribution a:hover {
+    cursor: pointer;
+    color: var(--slider-fill-color);
+}
