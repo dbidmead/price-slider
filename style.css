@@ -27,7 +27,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
 
 .site-wrapper {
@@ -37,7 +36,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 8rem;
+    gap: 5rem;
     background-color: var(--bg-color);
 }
 
@@ -52,7 +51,7 @@ body {
 
 .title-txt>img {
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -60,10 +59,14 @@ body {
 
 .title-txt>h1 {
     color: var(--txt-dark);
+    z-index: 4;
 }
 
 span {
     color: var(--txt-light);
+}
+.subtitle {
+    z-index: 2;
 }
 
 /* ------------------------- */
@@ -232,12 +235,16 @@ span {
     background-color: var(--slider-circle-color);
 }
 
-.discount {
+.discount, .discount-m {
     font-size: 0.7em;
     padding: 0.25em 0.75em;
     color: var(--discount-txt-color);
     background-color: var(--discount-bg-color);
     border-radius: 1.2em;
+}
+
+.discount-m {
+    display: none;
 }
 
 /* ------------------------- */
@@ -287,6 +294,8 @@ span {
     font-size: 11px; 
     text-align: center; 
     width: 100%;
+    position: absolute;
+    bottom: 1rem;
 }
 
 .attribution a { 
@@ -299,4 +308,82 @@ span {
 .attribution a:hover {
     cursor: pointer;
     color: var(--slider-fill-color);
+}
+
+@media (max-width: 600px) {
+    * {
+        text-align: center;
+    }
+
+    .site-wrapper {
+        gap: 1rem;
+    }
+
+    .title-txt {
+        padding: 3rem;
+        margin-top: 5rem;
+    }
+
+    .title-txt>h1 {
+        font-size: 1.3rem;
+    }
+    
+    span {
+        font-size: 0.9rem;
+    }
+
+    .subtitle {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .card {
+        padding: 1rem 1.5rem;
+    }
+
+    .slider-half {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+        gap: 1rem;
+    }
+
+    .pageviews-cell {
+        justify-content: center;
+    }
+
+    .price-cell {
+        grid-row-start: 3;
+        justify-content: center;
+    }
+
+    .discount {
+        display: none;
+    }
+
+    .discount-m {
+        display: flex;
+    }
+
+    .toggle-cell>p {
+        font-size: 0.8rem;
+    }
+
+    .btn-half {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .details>li {
+        justify-content: center;
+    }
+
+    #start {
+        width: 75%;
+        margin-bottom: 1rem;
+    }
+
+    .attribution {
+        position: unset;
+    }
 }

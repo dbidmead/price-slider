@@ -9,7 +9,6 @@ const toggle = document.querySelector('.toggle');
 toggle.addEventListener('click', () => {
     toggle.classList.toggle('toggled');
     if(toggle.classList.contains('toggled')) {
-        // toggle.firstElementChild.classList = '';
         toggle.firstElementChild.classList.add('slide-right');
         toggle.firstElementChild.addEventListener('animationend', () => {
             toggle.firstElementChild.classList.remove('slide-right');
@@ -34,24 +33,31 @@ slider.fill = document.querySelector('.slider-fill');
 slider.handle = document.querySelector('.slider-handle');
 slider.handle.snapIndex = 2;
 
-slider.handle.addEventListener('mousedown', () => {
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('mouseup', () => {
+slider.handle.addEventListener('pointerdown', (e) => {
+    e.preventDefault()
+    document.body.addEventListener('touchmove', stopMobileScroll, {passive: false});
+    document.addEventListener('pointermove', handleMouseMove, {passive: false})
+    document.addEventListener('pointerup', () => {
+        document.body.removeEventListener('touchmove', stopMobileScroll, {passive: false});
         document.querySelectorAll('*').forEach(el => {
             el.style.cursor = ''; // setting el.style to an empty sting in the js file will revert the element style to the CSS you defined in the stylesheet
         });
-        window.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('pointermove', handleMouseMove, {passive: false});
         handleSnap();
+        console.log(document.body.classList)
     })
-})
+}, {passive: false})
 
 function handleMouseMove(e) {
+    e.preventDefault();
+    e.stopPropagation();
     e.target.style.cursor = 'grabbing';
     if(e.clientX >= slider.containerX && e.clientX <= slider.containerXRight) {
         slider.handle.style.left = e.clientX - slider.containerX + 'px';
         slider.fill.style.width = 100 * parseFloat(slider.handle.style.left)/parseFloat(getComputedStyle(slider).width) + '%';
         handleIdentifyStop();
     }
+    console.log(document.body.classList)
 }
 
 function handleIdentifyStop() {
@@ -85,4 +91,8 @@ function setDisplays() {
     priceDisplay.textContent = yearlyDiscount ? 
         '$' + 0.75 * stopsPriceValues[slider.handle.snapIndex] + '.00':
         '$' + stopsPriceValues[slider.handle.snapIndex] + '.00';
+}
+
+function stopMobileScroll(e) {
+    e.preventDefault();
 }
