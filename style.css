@@ -86,6 +86,7 @@ span {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(3, 1fr);
     gap: 2rem;
+    padding-bottom: 0.75rem;
 }
 
 .slider-cell, .toggle-cell {
@@ -102,6 +103,7 @@ span {
     display: flex;
     align-items: center;
     gap: 1rem;
+    justify-content: flex-end;
 }
 
 #price-display {
@@ -183,9 +185,33 @@ span {
     padding: 0.2rem;
     cursor: pointer;
     transition: all 0.4s ease;
+    position: relative;
 }
 
 /* use @keyframes to animate the sliding of the toggle */
+.slide-right {
+    animation-name: slide-right;
+    animation-duration: 0.3s;
+    animation-timing-function: linear;
+}
+.slide-left {
+    animation-name: slide-left;
+    animation-duration: 0.3s;
+    animation-timing-function: linear;
+}
+@keyframes slide-right {
+    0% {left: 0.2rem;}
+    50% {left: 50%;}
+    60% {left: 55%;}
+    100% {right: 0.2rem;}
+}
+
+@keyframes slide-left {
+    0% {right: 0.2rem;}
+    20% {right: 30%;}
+    50% {right: 50%;}
+    100% {left: 0.2rem;}
+}
 
 .toggle:hover {
     background-color: var(--slider-circle-color);
@@ -197,6 +223,7 @@ span {
     background-color: white;
     border-radius: 50%;
     pointer-events: none;
+    position: absolute;
 }
 
 /* apply to toggle container */
@@ -215,7 +242,44 @@ span {
 
 /* ------------------------- */
 
+.btn-half {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgb(225, 224, 224);
+    padding-top: 2rem;
+}
 
+.details {
+    list-style: none;
+    gap: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.details li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--txt-light);
+    font-size: 0.9rem;
+}
+
+#start {
+    width: 40%;
+    height: 3rem;
+    border-radius: 1.5rem;
+    border: none;
+    transition: all 0.3s ease;
+    background-color: var(--txt-dark);
+    color: var(--btn-txt-color);
+}
+
+#start:hover {
+    cursor: pointer;
+    color: white;
+}
 
 /* ------------------------- */
 

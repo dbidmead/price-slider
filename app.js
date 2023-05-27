@@ -8,6 +8,18 @@ let yearlyDiscount = false;
 const toggle = document.querySelector('.toggle');
 toggle.addEventListener('click', () => {
     toggle.classList.toggle('toggled');
+    if(toggle.classList.contains('toggled')) {
+        // toggle.firstElementChild.classList = '';
+        toggle.firstElementChild.classList.add('slide-right');
+        toggle.firstElementChild.addEventListener('animationend', () => {
+            toggle.firstElementChild.classList.remove('slide-right');
+        })
+    } else {
+        toggle.firstElementChild.classList.add('slide-left');
+        toggle.firstElementChild.addEventListener('animationend', () => {
+            toggle.firstElementChild.classList.remove('slide-left');
+        })
+    }
     yearlyDiscount = !yearlyDiscount;
     setDisplays();
 })
@@ -42,14 +54,13 @@ function handleMouseMove(e) {
     }
 }
 
-
 function handleIdentifyStop() {
     let leftPos = parseFloat(slider.handle.style.left);
     slider.stops = [];
     for(let i = 0; i < 5; i++) {
         slider.stops.push(i * slider.priceSegmentWidth)
-    }
-    // console.log(slider.stops)
+    };
+
     for(let i = 0; i < 4; i++) {
         if(leftPos >= i*slider.priceSegmentWidth && leftPos < (i+1)*slider.priceSegmentWidth) {
             if(Math.abs(leftPos - i*slider.priceSegmentWidth) >= (Math.abs(leftPos - (i+1)*slider.priceSegmentWidth))) {
@@ -66,13 +77,12 @@ function handleSnap() {
     slider.handle.snapTo = slider.stops[slider.handle.snapIndex];
     slider.handle.style.left = slider.handle.snapTo + 'px';
     slider.fill.style.width = 100 * parseFloat(slider.handle.style.left)/parseFloat(getComputedStyle(slider).width) + '%';
-
     setDisplays();
 }
 
 function setDisplays() {
     pageviewsDisplay.textContent = stopsPageviewValues[slider.handle.snapIndex] + ' PAGEVIEWS';
     priceDisplay.textContent = yearlyDiscount ? 
-        '$' + 0.75 * stopsPriceValues[slider.handle.snapIndex] :
-        '$' + stopsPriceValues[slider.handle.snapIndex];
+        '$' + 0.75 * stopsPriceValues[slider.handle.snapIndex] + '.00':
+        '$' + stopsPriceValues[slider.handle.snapIndex] + '.00';
 }
