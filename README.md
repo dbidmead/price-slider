@@ -1,105 +1,146 @@
-# Frontend Mentor - Interactive pricing component
+# Frontend Mentor - Interactive pricing component solution
 
-![Design preview for the Interactive pricing component coding challenge](./design/desktop-preview.jpg)
+This is a solution to the [Interactive pricing component challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-pricing-component-t0m8PIyY8). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
 
-## Welcome! 👋
+## Table of contents
 
-Thanks for checking out this front-end coding challenge.
-
-[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects.
-
-**To do this challenge, you need a basic understanding of HTML, CSS and JavaScript.**
+- [The challenge](#the-challenge)
+- [Links](#links)
+- [Built with](#built-with)
+- [What I learned](#what-i-learned)
+- [Author](#author)
 
 ## The challenge
 
-Your challenge is to build out this interactive pricing component and get it looking as close to the design as possible.
-
-You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
-
-Your users should be able to:
+Users should be able to:
 
 - View the optimal layout for the app depending on their device's screen size
 - See hover states for all interactive elements on the page
-- Use the slider and toggle to see prices for different page view numbers (details provided below)
+- Use the slider and toggle to see prices for different page view numbers
 
-Want some support on the challenge? [Join our Slack community](https://www.frontendmentor.io/slack) and ask questions in the **#help** channel.
+## Links
 
-### Page view and pricing totals
+- Solution URL: [https://dbidmead.github.io/price-slider](https://dbidmead.github.io/price-slider)
 
-Here are the different page view ranges and the corresponding monthly price totals:
+## Built with
 
-- 10K pageviews / $8 per month
-- 50K pageviews / $12 per month
-- 100K pageviews / $16 per month
-- 500k pageviews / $24 per month
-- 1M pageviews / $36 per month
+- Semantic HTML5 markup
+- CSS custom properties
+- Flexbox
+- CSS Grid
+- JS for DOM manipulation and slider functionality
 
-If the visitor switches the toggle to yearly billing, a 25% discount should be applied to all prices.
+## What I learned
 
-## Where to find everything
+### Mobile scrolling glitch fix when dragging an item by 'touchmove' event:
+```js
+function stopMobileScroll(e) {
+    e.preventDefault();
+}
 
-Your task is to build out the project to the designs inside the `/design` folder. You will find both a mobile and a desktop version of the design. 
+el.addEventListener('pointerdown', () => {
+    // as soon as the pointer goes down, add a touchmove event listener to the document body that prevents default, and SET {passive:false}!!! This allows the prevent default function to work
+    document.body.addEventListener('touchmove', stopMobileScroll, {passive: false});
 
-The designs are in JPG static format. Using JPGs will mean that you'll need to use your best judgment for styles such as `font-size`, `padding` and `margin`. 
+    // add event listener for the dragging logic
+    document.addEventListener('pointermove', handleMouseMove)
 
-If you would like the design files (we provide Sketch & Figma versions) to inspect the design in more detail, you can [subscribe as a PRO member](https://www.frontendmentor.io/pro).
+    document.addEventListener('pointerup', () => {
+        // as soon as the pointer goes up, remove the scroll preventer so the site functions normally again when the dragging is over
+        document.body.removeEventListener('touchmove', stopMobileScroll, {passive: false});
 
-You will find all the required assets in the `/images` folder. The assets are already optimized.
+        // remove drag function event listener
+        document.removeEventListener('pointermove', handleMouseMove);
+        handleSnap();
+    })
+})
+```
+Note that you should use 'pointer___' for the eventListener event to affect both mouse and touch actions.
 
-There is also a `style-guide.md` file containing the information you'll need, such as color palette and fonts.
+### reset JS-implemented style changes back to stylesheet-defined styles
+```js
+const el = document.querySelector('#el')
+el.style.height = '' // simply .style it to an empty string since it is specific to JS-implemented style changes
+```
 
-## Building your project
+### Reusable toggle switch code with animation
+```html
+<div class="toggle">
+    <div class="toggle-handle"></div>
+</div>
+```
 
-Feel free to use any workflow that you feel comfortable with. Below is a suggested process, but do not feel like you need to follow these steps:
+```css
+.toggle {
+    background-color: grey;
+    width: 2.5rem;
+    height: 1.25rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    padding: 0.2rem;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+}
 
-1. Initialize your project as a public repository on [GitHub](https://github.com/). Creating a repo will make it easier to share your code with the community if you need help. If you're not sure how to do this, [have a read-through of this Try Git resource](https://try.github.io/).
-2. Configure your repository to publish your code to a web address. This will also be useful if you need some help during a challenge as you can share the URL for your project with your repo URL. There are a number of ways to do this, and we provide some recommendations below.
-3. Look through the designs to start planning out how you'll tackle the project. This step is crucial to help you think ahead for CSS classes to create reusable styles.
-4. Before adding any styles, structure your content with HTML. Writing your HTML first can help focus your attention on creating well-structured content.
-5. Write out the base styles for your project, including general content styles, such as `font-family` and `font-size`.
-6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.
+.toggle:hover {
+    background-color: aqua;
+}
 
-## Deploying your project
+.toggle-handle {
+    width: 0.9rem;
+    height: 0.9rem;
+    background-color: white;
+    border-radius: 50%;
+    pointer-events: none;
+    position: absolute;
+}
 
-As mentioned above, there are many ways to host your project for free. Our recommend hosts are:
+.toggled {
+    justify-content: flex-end;
+    background-color: aqua;
+}
 
-- [GitHub Pages](https://pages.github.com/)
-- [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
+.slide-right {
+    animation-name: slide-right;
+    animation-duration: 0.3s;
+    animation-timing-function: linear;
+}
+.slide-left {
+    animation-name: slide-left;
+    animation-duration: 0.3s;
+    animation-timing-function: linear;
+}
 
-You can host your site using one of these solutions or any of our other trusted providers. [Read more about our recommended and trusted hosts](https://medium.com/frontend-mentor/frontend-mentor-trusted-hosting-providers-bf000dfebe).
+@keyframes slide-right {
+    0% {left: 0.2rem;}
+    50% {left: 50%;}
+    60% {left: 55%;}
+    100% {right: 0.2rem;}
+}
 
-## Create a custom `README.md`
+@keyframes slide-left {
+    0% {right: 0.2rem;}
+    20% {right: 30%;}
+    50% {right: 50%;}
+    100% {left: 0.2rem;}
+}
+```
+```js
+const toggle = document.querySelector('.toggle');
+toggle.addEventListener('click', () => {
+    toggle.classList.toggle('toggled');
+    let animation = toggle.classList.contains('toggled') ? 'slide-right' : 'slide-left';
+    toggle.firstElementChild.classList.add(animation);
+    toggle.firstElementChild.addEventListener('animationend', () => {
+        toggle.firstElementChild.classList.remove(animation);
+    });
+    // insert other toggle-related logic
+})
+```
 
-We strongly recommend overwriting this `README.md` with a custom one. We've provided a template inside the [`README-template.md`](./README-template.md) file in this starter code.
+## Author
 
-The template provides a guide for what to add. A custom `README` will help you explain your project and reflect on your learnings. Please feel free to edit our template as much as you like.
-
-Once you've added your information to the template, delete this file and rename the `README-template.md` file to `README.md`. That will make it show up as your repository's README file.
-
-## Submitting your solution
-
-Submit your solution on the platform for the rest of the community to see. Follow our ["Complete guide to submitting solutions"](https://medium.com/frontend-mentor/a-complete-guide-to-submitting-solutions-on-frontend-mentor-ac6384162248) for tips on how to do this.
-
-Remember, if you're looking for feedback on your solution, be sure to ask questions when submitting it. The more specific and detailed you are with your questions, the higher the chance you'll get valuable feedback from the community.
-
-## Sharing your solution
-
-There are multiple places you can share your solution:
-
-1. Share your solution page in the **#finished-projects** channel of the [Slack community](https://www.frontendmentor.io/slack). 
-2. Tweet [@frontendmentor](https://twitter.com/frontendmentor) and mention **@frontendmentor**, including the repo and live URLs in the tweet. We'd love to take a look at what you've built and help share it around.
-3. Share your solution on other social channels like LinkedIn.
-4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).
-
-We provide templates to help you share your solution once you've submitted it on the platform. Please do edit them and include specific questions when you're looking for feedback. 
-
-The more specific you are with your questions the more likely it is that another member of the community will give you feedback.
-
-## Got feedback for us?
-
-We love receiving feedback! We're always looking to improve our challenges and our platform. So if you have anything you'd like to mention, please email hi[at]frontendmentor[dot]io.
-
-This challenge is completely free. Please share it with anyone who will find it useful for practice.
-
-**Have fun building!** 🚀
+- GitHub - [@dbidmead](https://github.com/dbidmead)
+- Frontend Mentor - [@dbidmead](https://www.frontendmentor.io/profile/dbidmead)
